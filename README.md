@@ -9,3 +9,26 @@ I/O Collections
 [![Supports HHVM 3.4+](https://raw.githubusercontent.com/xp-framework/web/master/static/hhvm-3_4plus.png)](http://hhvm.com/)
 [![Latest Stable Version](https://poser.pugx.org/xp-framework/io-collections/version.png)](https://packagist.org/packages/xp-framework/io-collections)
 
+Example
+-------
+This finds all JPEG files inside the directory `/home/thekid/multimedia`:
+
+```
+use io\collections\FileCollection;
+use io\collections\iterate\FilteredIOCollectionIterator;
+use io\collections\iterate\ExtensionEqualsFiler;
+use util\cmd\Console;
+
+$origin= new FileCollection('/home/thekid/multimedia');
+$files= new FilteredIOCollectionIterator($origin, new ExtensionEqualsFilter('.jpg'), true);
+foreach ($files as $file) {
+  Console::writeLine('Element ', $file);
+}
+```
+
+See also
+--------
+* [RFC #0196: I/O Collections random access](https://github.com/xp-framework/rfc/issues/196)
+* [RFC #0174: io.collections interface additions / io.streams integration](https://github.com/xp-framework/rfc/issues/174)
+* [RFC #0077: I/O Collections Extensions](https://github.com/xp-framework/rfc/issues/77)
+* [RFC #0075: I/O Collections](https://github.com/xp-framework/rfc/issues/75)
