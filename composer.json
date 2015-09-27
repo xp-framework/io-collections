@@ -1,0 +1,15 @@
+{
+  "name" : "xp-framework/io-collections",
+  "type" : "library",
+  "homepage" : "http://xp-framework.net/",
+  "license" : "BSD-3-Clause",
+  "description" : "I/O Collections for the XP Framework",
+  "keywords": ["module", "xp"],
+  "require" : {
+    "xp-framework/core": "^6.5.0",
+    "php" : ">=5.5.0"
+  },
+  "autoload" : {
+    "files" : ["src/main/php/autoload.php"]
+  }
+}
