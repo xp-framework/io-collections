@@ -9,20 +9,72 @@ I/O Collections
 [![Supports HHVM 3.4+](https://raw.githubusercontent.com/xp-framework/web/master/static/hhvm-3_4plus.png)](http://hhvm.com/)
 [![Latest Stable Version](https://poser.pugx.org/xp-framework/io-collections/version.png)](https://packagist.org/packages/xp-framework/io-collections)
 
+API
+---
+The entry point for accessing I/O collections are the `io.collections.IOCollection` implementations:
+
+* `io.collections.FileCollection` - files in a given filesystem path
+* `io.collections.ArchiveCollection` - files inside a XAR archive
+
+To access the files from more than one collection, use the `io.collections.CollectionComposite` class.
+
+Iteration
+---------
+The subpackage `io.collections.iterate` allows iterating I/O collections.
+
+* `io.collections.iterate.IOCollectionIterator` - iterate a given I/O collection, optionally recursive
+* `io.collections.iterate.FilteredIOCollectionIterator` - as above, but with an optional filter
+
+### Filters
+The following filters are available:
+
+Date-based:
+
+* `io.collections.iterate.AccessedAfterFilter(util.Date)`
+* `io.collections.iterate.AccessedBeforeFilter(util.Date)`
+* `io.collections.iterate.CreatedAfterFilter(util.Date)`
+* `io.collections.iterate.CreatedBeforeFilter(util.Date)`
+* `io.collections.iterate.ModifiedAfterFilter(util.Date)`
+* `io.collections.iterate.ModifiedBeforeFilter(util.Date)`
+
+Size-based:
+
+* `io.collections.iterate.SizeBiggerThanFilter()`
+* `io.collections.iterate.SizeEqualsFilter()`
+* `io.collections.iterate.SizeSmallerThanFilter()`
+
+Name-based:
+
+* `io.collections.iterate.ExtensionEqualsFilter(string)`
+* `io.collections.iterate.NameEqualsFilter()`
+* `io.collections.iterate.NameMatchesFilter()`
+* `io.collections.iterate.UriMatchesFilter()`
+
+Type-based:
+
+* `io.collections.iterate.CollectionFilter()`
+
+To combine filters, use the `util.Filters` class.
+
 Example
 -------
 This finds all JPEG files inside the directory `/home/thekid/multimedia`:
 
-```
+```php
 use io\collections\FileCollection;
 use io\collections\iterate\FilteredIOCollectionIterator;
 use io\collections\iterate\ExtensionEqualsFiler;
 use util\cmd\Console;
+use util\Filters;
 
-$origin= new FileCollection('/home/thekid/multimedia');
-$files= new FilteredIOCollectionIterator($origin, new ExtensionEqualsFilter('.jpg'), true);
-foreach ($files as $file) {
-  Console::writeLine('Element ', $file);
+$iterator= new FilteredIOCollectionIterator(
+  new FileCollection('/home/thekid/multimedia'),
+  Filters::allOf([new ExtensionEqualsFilter('.jpg'), new ExtensionEqualsFilter('.JPG')]), 
+  true
+);
+
+foreach ($iterator as $file) {
+  Console::writeLine($file);
 }
 ```
 
