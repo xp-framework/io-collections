@@ -30,25 +30,25 @@ The following filters are available:
 
 Date-based:
 
-* `io.collections.iterate.AccessedAfterFilter(util.Date)`
-* `io.collections.iterate.AccessedBeforeFilter(util.Date)`
-* `io.collections.iterate.CreatedAfterFilter(util.Date)`
-* `io.collections.iterate.CreatedBeforeFilter(util.Date)`
-* `io.collections.iterate.ModifiedAfterFilter(util.Date)`
-* `io.collections.iterate.ModifiedBeforeFilter(util.Date)`
+* `io.collections.iterate.AccessedAfterFilter(util.Date $date)`
+* `io.collections.iterate.AccessedBeforeFilter(util.Date $date)`
+* `io.collections.iterate.CreatedAfterFilter(util.Date $date)`
+* `io.collections.iterate.CreatedBeforeFilter(util.Date $date)`
+* `io.collections.iterate.ModifiedAfterFilter(util.Date $date)`
+* `io.collections.iterate.ModifiedBeforeFilter(util.Date $date)`
 
 Size-based:
 
-* `io.collections.iterate.SizeBiggerThanFilter()`
-* `io.collections.iterate.SizeEqualsFilter()`
-* `io.collections.iterate.SizeSmallerThanFilter()`
+* `io.collections.iterate.SizeEqualsFilter(int $compare)`
+* `io.collections.iterate.SizeBiggerThanFilter(int $limit)`
+* `io.collections.iterate.SizeSmallerThanFilter(int $limit)`
 
 Name-based:
 
-* `io.collections.iterate.ExtensionEqualsFilter(string)`
-* `io.collections.iterate.NameEqualsFilter()`
-* `io.collections.iterate.NameMatchesFilter()`
-* `io.collections.iterate.UriMatchesFilter()`
+* `io.collections.iterate.ExtensionEqualsFilter(string $compare)`
+* `io.collections.iterate.NameEqualsFilter(string $compare)`
+* `io.collections.iterate.NameMatchesFilter(string $pattern)`
+* `io.collections.iterate.UriMatchesFilter(string $pattern)`
 
 Type-based:
 
