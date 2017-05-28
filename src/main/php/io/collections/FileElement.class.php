@@ -3,26 +3,32 @@
 use io\streams\FileInputStream;
 use io\streams\FileOutputStream;
 use io\File;
+use io\Path;
+use lang\Value;
+use util\Date;
 
 /**
  * Represents a file element
  *
  * @see   xp://io.collections.FileCollection
+ * @test  xp://io.collections.unittest.FileElementTest
  */
-class FileElement extends \lang\Object implements IOElement {
+class FileElement implements IOElement, Value {
   public $uri;
   protected $origin = null;
 
   /**
    * Constructor
    *
-   * @param   var arg either a string or an io.File object
+   * @param  string|io.File|io.Path $arg
    */
   public function __construct($arg) {
     if ($arg instanceof File) {
       $this->uri= $arg->getURI();
+    } else if ($arg instanceof Path) {
+      $this->uri= $arg->asRealpath()->toString();
     } else {
-      $this->uri= (string)$arg;
+      $this->uri= realpath($arg);
     }
   }
 
@@ -59,7 +65,7 @@ class FileElement extends \lang\Object implements IOElement {
    * @return  util.Date
    */
   public function createdAt() {
-    return new \util\Date(filectime($this->uri));
+    return new Date(filectime($this->uri));
   }
 
   /**
@@ -68,7 +74,7 @@ class FileElement extends \lang\Object implements IOElement {
    * @return  util.Date
    */
   public function lastAccessed() {
-    return new \util\Date(fileatime($this->uri));
+    return new Date(fileatime($this->uri));
   }
 
   /**
@@ -77,16 +83,22 @@ class FileElement extends \lang\Object implements IOElement {
    * @return  util.Date
    */
   public function lastModified() {
-    return new \util\Date(filemtime($this->uri));
+    return new Date(filemtime($this->uri));
   }
   
-  /**
-   * Creates a string representation of this object
-   *
-   * @return  string
-   */
+  /** Creates a string representation of this object */
   public function toString() { 
     return nameof($this).'('.$this->uri.')';
+  }
+
+  /** Creates a string representation of this object */
+  public function hashCode() { 
+    return 'FE'.md5($this->uri);
+  }
+
+  /** Compares this to another value */
+  public function compareTo($value) {
+    return $value instanceof self ? strcmp($this->uri, $value->uri) : 1;
   }
 
   /**

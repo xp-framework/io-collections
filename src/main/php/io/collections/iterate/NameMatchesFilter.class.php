@@ -5,7 +5,7 @@
  *
  * @see   php://preg_match
  */
-class NameMatchesFilter extends \lang\Object implements IterationFilter {
+class NameMatchesFilter implements IterationFilter {
   public $pattern= '';
     
   /**

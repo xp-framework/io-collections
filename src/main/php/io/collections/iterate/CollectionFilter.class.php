@@ -3,7 +3,7 @@
 /**
  * Filter that accepts only IOCollections (e.g. directories)
  */
-class CollectionFilter extends \lang\Object implements IterationFilter {
+class CollectionFilter implements IterationFilter {
     
   /**
    * Accepts an element
@@ -23,5 +23,4 @@ class CollectionFilter extends \lang\Object implements IterationFilter {
   public function toString() {
     return nameof($this);
   }
-
 } 

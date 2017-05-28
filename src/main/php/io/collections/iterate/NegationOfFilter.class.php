@@ -5,9 +5,8 @@
  *
  * @deprecated Use util.Filters::noneOf() instead
  */
-class NegationOfFilter extends \lang\Object implements IterationFilter {
-  public
-    $filter= null;
+class NegationOfFilter implements IterationFilter {
+  public $filter;
     
   /**
    * Constructor

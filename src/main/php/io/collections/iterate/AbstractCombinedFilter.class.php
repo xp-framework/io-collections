@@ -7,7 +7,7 @@
  * @see   xp://io.collections.iterate.AllOfFilter
  * @deprecated  Use util.Filters instead
  */
-abstract class AbstractCombinedFilter extends \lang\Object implements IterationFilter {
+abstract class AbstractCombinedFilter implements IterationFilter {
   public $list;
   protected $_size;
     

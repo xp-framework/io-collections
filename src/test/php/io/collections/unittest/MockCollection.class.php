@@ -3,13 +3,14 @@
 use io\collections\IOElement;
 use io\collections\IOCollection;
 use io\collections\RandomCollectionAccess;
+use lang\Value;
 
 /**
  * IOCollection implementation
  *
  * @see    xp://io.collections.IOCollection
  */
-class MockCollection extends \lang\Object implements IOCollection {
+class MockCollection implements IOCollection, Value {
   protected
     $uri       = '',
     $_elements = [],
@@ -128,13 +129,19 @@ class MockCollection extends \lang\Object implements IOCollection {
     return null;
   }
 
-  /**
-   * Creates a string representation of this object
-   *
-   * @return  string
-   */
+  /** Creates a string representation of this object */
   public function toString() { 
     return nameof($this).'('.$this->uri.')';
+  }
+
+  /** Creates a string representation of this object */
+  public function hashCode() { 
+    return 'MC'.md5($this->uri);
+  }
+
+  /** Compares this to another value */
+  public function compareTo($value) {
+    return $value instanceof self ? strcmp($this->uri, $value->uri) : 1;
   }
 
   /**
@@ -305,15 +312,5 @@ class MockCollection extends \lang\Object implements IOCollection {
         break;
       }
     }
-  }
-
-  /**
-   * Returns whether another object is equal to this element
-   *
-   * @param   lang.Generic cmp
-   * @return  bool
-   */
-  public function equals($cmp) {
-    return $cmp instanceof self && $cmp->getURI() === $this->getURI();
   }
 } 

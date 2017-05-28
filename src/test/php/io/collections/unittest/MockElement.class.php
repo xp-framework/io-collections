@@ -4,13 +4,14 @@ use io\collections\IOElement;
 use io\collections\IOCollection;
 use io\streams\MemoryInputStream;
 use io\streams\MemoryOutputStream;
+use lang\Value;
 
 /**
  * Represents a Mock element
  *
  * @see    xp://net.xp_framework.unittest.io.collections.MockCollection
  */
-class MockElement extends \lang\Object implements IOElement {
+class MockElement implements IOElement, Value {
   protected
     $uri    = '',
     $size   = 0,
@@ -90,13 +91,19 @@ class MockElement extends \lang\Object implements IOElement {
     return $this->mdate;
   }
 
-  /**
-   * Creates a string representation of this object
-   *
-   * @return  string
-   */
+  /** Creates a string representation of this object */
   public function toString() { 
     return nameof($this).'('.$this->uri.')';
+  }
+
+  /** Creates a string representation of this object */
+  public function hashCode() { 
+    return 'ME'.md5($this->uri);
+  }
+
+  /** Compares this to another value */
+  public function compareTo($value) {
+    return $value instanceof self ? strcmp($this->uri, $value->uri) : 1;
   }
 
   /**
@@ -158,14 +165,4 @@ class MockElement extends \lang\Object implements IOElement {
   public function out() {
     return new MemoryOutputStream();
   }
-  
-  /**
-   * Returns whether another object is equal to this element
-   *
-   * @param   lang.Generic cmp
-   * @return  bool
-   */
-  public function equals($cmp) {
-    return $cmp instanceof self && $cmp->getURI() === $this->getURI();
-  }
-} 
+}

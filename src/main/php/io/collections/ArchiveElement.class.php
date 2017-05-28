@@ -2,13 +2,14 @@
 
 use lang\archive\Archive;
 use io\streams\MemoryInputStream;
+use lang\Value;
 
 /**
  * Represents an element inside an archive
  *
  * @see    xp://io.collections.ArchiveCollection
  */
-class ArchiveElement extends \lang\Object implements IOElement {
+class ArchiveElement implements IOElement, Value {
   protected $archive = null;
   protected $name    = '';
   protected $origin  = null;
@@ -79,13 +80,22 @@ class ArchiveElement extends \lang\Object implements IOElement {
     return null;
   }
   
-  /**
-   * Creates a string representation of this object
-   *
-   * @return  string
-   */
+  /** Creates a string representation of this object */
   public function toString() { 
     return nameof($this).'('.$this->archive->toString().'?'.$this->name.')';
+  }
+
+  /** Creates a string representation of this object */
+  public function hashCode() { 
+    return 'AE'.md5($this->archive->toString().'?'.$this->name);
+  }
+
+  /** Compares this to another value */
+  public function compareTo($value) {
+    return $value instanceof self
+      ? strcmp($this->archive->toString().'?'.$this->name, $value->archive->toString().'?'.$value->name)
+      : 1
+    ;
   }
 
   /**

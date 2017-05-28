@@ -3,7 +3,7 @@
 /**
  * Extension filter
  */
-class ExtensionEqualsFilter extends \lang\Object implements IterationFilter {
+class ExtensionEqualsFilter implements IterationFilter {
   public
     $extension= '';
     
