@@ -3,7 +3,7 @@
 use io\collections\FileElement;
 use io\Path;
 use io\File;
-use lang\Environment;
+use lang\System;
 use util\Date;
 
 class FileElementTest extends \unittest\TestCase {
@@ -11,7 +11,7 @@ class FileElementTest extends \unittest\TestCase {
 
   #[@beforeClass]
   public static function createTempFile() {
-    self::$file= tempnam(Environment::tempDir(), __CLASS__);
+    self::$file= tempnam(System::tempDir(), __CLASS__);
   }
 
   #[@afterClass]
