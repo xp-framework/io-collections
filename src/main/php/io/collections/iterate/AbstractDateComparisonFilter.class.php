@@ -3,7 +3,7 @@
 /**
  * Date comparison iteration filter
  */
-class AbstractDateComparisonFilter extends \lang\Object implements IterationFilter {
+class AbstractDateComparisonFilter implements IterationFilter {
   public
     $date= null;
     

@@ -3,6 +3,7 @@
 use util\Date;
 use io\collections\IOElement;
 use io\collections\IOCollection;
+use unittest\AssertionFailedError;
 
 /**
  * This base class does not contain any test methods and is meant to
@@ -19,12 +20,12 @@ abstract class AbstractCollectionTest extends \unittest\TestCase {
    * Assert an origin is based on a given origin.
    *
    * Assume we have the following situation:
-   * <pre>
-   *   IOCollection(/)
-   *   `- IOCollection(/var)
-   *      `- IOCollection(/var/log)
-   *         `- IOElement (/var/log/messages)
-   * </pre>
+   * ```
+   * IOCollection(/)
+   * `- IOCollection(/var)
+   *    `- IOCollection(/var/log)
+   *       `- IOElement (/var/log/messages)
+   * ```
    *
    * This asserts that IOElement (/var/log/messages)'s origin is based
    * on IOCollection(/).
@@ -36,9 +37,10 @@ abstract class AbstractCollectionTest extends \unittest\TestCase {
   protected function assertOriginBasedOn(IOCollection $base, IOCollection $origin) {
     $search= $origin;
     do {
-      if ($search->equals($base)) return;
+      if (0 === $search->compareTo($base)) return;
     } while (null !== ($search= $search->getOrigin()));
-    throw new \unittest\AssertionFailedError('Not based on', $origin, $base);
+
+    throw new AssertionFailedError('Not based on', $origin, $base);
   }
 
   /**

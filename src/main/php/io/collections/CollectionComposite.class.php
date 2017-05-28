@@ -20,12 +20,9 @@
  * @see      http://news.xp-framework.net/article/129/2006/11/09/
  * @test     xp://net.xp_framework.unittest.io.collections.CollectionCompositeTest 
  */
-class CollectionComposite extends \lang\Object {
-  public
-    $collections = [];
-  
-  protected
-    $_current    = 0;
+class CollectionComposite {
+  public $collections;
+  protected $_current = 0;
     
   /**
    * Constructor

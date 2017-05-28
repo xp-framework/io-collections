@@ -19,8 +19,7 @@
  * @see      xp://io.collections.iterate.IOCollectionIterator
  */
 class FilteredIOCollectionIterator extends IOCollectionIterator {
-  public
-    $filter    = null;
+  public $filter;
   
   /**
    * Constructor

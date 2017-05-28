@@ -3,7 +3,7 @@
 /**
  * Size comparison filter
  */
-class AbstractSizeComparisonFilter extends \lang\Object implements IterationFilter {
+class AbstractSizeComparisonFilter implements IterationFilter {
   public
     $size= 0;
     

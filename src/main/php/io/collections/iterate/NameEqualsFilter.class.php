@@ -3,7 +3,7 @@
 /**
  * Name filter
  */
-class NameEqualsFilter extends \lang\Object implements IterationFilter {
+class NameEqualsFilter implements IterationFilter {
   public $compare= '';
     
   /**

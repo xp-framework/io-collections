@@ -1,7 +1,5 @@
 <?php namespace io\collections\iterate;
 
-
-
 /**
  * Iteration filter matching on the complete URI. Always use forward
  * slashes to match on directory components regardless of the platform
@@ -10,7 +8,7 @@
  * @see   xp://io.collections.iterate.NameMatchesFilter
  * @see   php://preg_match
  */
-class UriMatchesFilter extends \lang\Object implements IterationFilter {
+class UriMatchesFilter implements IterationFilter {
   public $pattern= '';
     
   /**
@@ -40,5 +38,4 @@ class UriMatchesFilter extends \lang\Object implements IterationFilter {
   public function toString() {
     return nameof($this).'('.$this->pattern.')';
   }
-
-} 
+}

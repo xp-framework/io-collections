@@ -1,6 +1,7 @@
 <?php namespace io\collections;
 
 use lang\archive\Archive;
+use lang\Value;
 
 /**
  * Archive collection
@@ -8,7 +9,7 @@ use lang\archive\Archive;
  * @test  xp://net.xp_framework.unittest.io.collections.ArchiveCollectionTest
  * @see   xp://io.collections.IOCollection
  */
-class ArchiveCollection extends \lang\Object implements IOCollection {
+class ArchiveCollection implements IOCollection, Value {
   protected
     $archive = null,
     $origin  = null,
@@ -21,7 +22,7 @@ class ArchiveCollection extends \lang\Object implements IOCollection {
    * @param   lang.archive.Archive archive
    * @param   string base
    */
-  public function __construct(\lang\archive\Archive $archive, $base= '') {
+  public function __construct(Archive $archive, $base= '') {
     $this->archive= $archive;
     $this->base= $base;
   }
@@ -136,13 +137,22 @@ class ArchiveCollection extends \lang\Object implements IOCollection {
     return null;
   }
 
-  /**
-   * Creates a string representation of this object
-   *
-   * @return  string
-   */
+  /** Creates a string representation of this object */
   public function toString() { 
     return nameof($this).'('.$this->archive->toString().'?'.$this->base.')';
+  }
+
+  /** Creates a string representation of this object */
+  public function hashCode() { 
+    return 'AC'.md5($this->archive->toString().'?'.$this->base);
+  }
+
+  /** Compares this to another value */
+  public function compareTo($value) {
+    return $value instanceof self
+      ? strcmp($this->archive->toString().'?'.$this->base, $value->archive->toString().'?'.$value->base)
+      : 1
+    ;
   }
 
   /**

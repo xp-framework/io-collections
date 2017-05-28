@@ -1,13 +1,19 @@
 <?php namespace io\collections;
 
 use io\Folder;
+use io\Path;
+use io\IOException;
+use lang\Value;
+use util\Date;
+use util\NoSuchElementException;
 
 /**
  * File collection
  *
  * @see   xp://io.collections.IOCollection
+ * @test  xp://io.collections.unittest.FileCollectionTest
  */
-class FileCollection extends \lang\Object implements IOCollection, RandomCollectionAccess {
+class FileCollection implements IOCollection, RandomCollectionAccess, Value {
   public $uri;
   protected $origin = null;
   protected $_hd    = null;
@@ -15,11 +21,13 @@ class FileCollection extends \lang\Object implements IOCollection, RandomCollect
   /**
    * Constructor
    *
-   * @param   var arg either a string or an io.Folder object
+   * @param  string|io.Folder|io.Path $arg
    */
   public function __construct($arg) {
     if ($arg instanceof Folder) {
       $this->uri= $arg->getURI();
+    } else if ($arg instanceof Path) {
+      $this->uri= $arg->asRealpath()->toString().DIRECTORY_SEPARATOR;
     } else {
       $this->uri= rtrim(realpath($arg), DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
     }
@@ -113,7 +121,7 @@ class FileCollection extends \lang\Object implements IOCollection, RandomCollect
    * @return  util.Date
    */
   public function createdAt() {
-    return new \util\Date(filectime($this->uri));
+    return new Date(filectime($this->uri));
   }
 
   /**
@@ -122,7 +130,7 @@ class FileCollection extends \lang\Object implements IOCollection, RandomCollect
    * @return  util.Date
    */
   public function lastAccessed() {
-    return new \util\Date(fileatime($this->uri));
+    return new Date(fileatime($this->uri));
   }
 
   /**
@@ -131,16 +139,22 @@ class FileCollection extends \lang\Object implements IOCollection, RandomCollect
    * @return  util.Date
    */
   public function lastModified() {
-    return new \util\Date(filemtime($this->uri));
+    return new Date(filemtime($this->uri));
   }
 
-  /**
-   * Creates a string representation of this object
-   *
-   * @return  string
-   */
+  /** Creates a string representation of this object */
   public function toString() { 
     return nameof($this).'('.$this->uri.')';
+  }
+
+  /** Creates a string representation of this object */
+  public function hashCode() { 
+    return 'FC'.md5($this->uri);
+  }
+
+  /** Compares this to another value */
+  public function compareTo($value) {
+    return $value instanceof self ? strcmp($this->uri, $value->uri) : 1;
   }
 
   /**
@@ -168,7 +182,7 @@ class FileCollection extends \lang\Object implements IOCollection, RandomCollect
    * @throws  io.IOException
    */
   public function getInputStream() {
-    throw new \io\IOException('Cannot read from a directory');
+    throw new IOException('Cannot read from a directory');
   }
 
   /**
@@ -178,7 +192,7 @@ class FileCollection extends \lang\Object implements IOCollection, RandomCollect
    * @throws  io.IOException
    */
   public function getOutputStream() {
-    throw new \io\IOException('Cannot write to a directory');
+    throw new IOException('Cannot write to a directory');
   }
 
   /**
@@ -192,7 +206,7 @@ class FileCollection extends \lang\Object implements IOCollection, RandomCollect
   public function newElement($name) {
     $qualified= $this->qualifiedName($name);
     if (!touch($qualified)) {
-      throw new \io\IOException('Cannot create '.$qualified);
+      throw new IOException('Cannot create '.$qualified);
     }
     $created= new FileElement($qualified);
     $created->setOrigin($this);
@@ -262,7 +276,7 @@ class FileCollection extends \lang\Object implements IOCollection, RandomCollect
    */
   public function getElement($name) {
     if (!($found= $this->findElement($name))) {
-      throw new \util\NoSuchElementException('Cannot find '.$name.' in '.$this->uri);
+      throw new NoSuchElementException('Cannot find '.$name.' in '.$this->uri);
     }
     return $found;
   }
@@ -278,7 +292,7 @@ class FileCollection extends \lang\Object implements IOCollection, RandomCollect
    */
   public function getCollection($name) {
     if (!($found= $this->findCollection($name))) {
-      throw new \util\NoSuchElementException('Cannot find '.$name.' in '.$this->uri);
+      throw new NoSuchElementException('Cannot find '.$name.' in '.$this->uri);
     }
     return $found;
   }
@@ -293,7 +307,7 @@ class FileCollection extends \lang\Object implements IOCollection, RandomCollect
   public function removeElement($name) {
     $qualified= $this->qualifiedName($name);
     if (!unlink($qualified)) {
-      throw new \io\IOException('Cannot remove '.$qualified);
+      throw new IOException('Cannot remove '.$qualified);
     }
   }
 
@@ -307,7 +321,7 @@ class FileCollection extends \lang\Object implements IOCollection, RandomCollect
   public function removeCollection($name) {
     $qualified= $this->qualifiedName($name);
     if (!rmdir($qualified)) {
-      throw new \io\IOException('Cannot remove '.$qualified);
+      throw new IOException('Cannot remove '.$qualified);
     }
   }
 } 
