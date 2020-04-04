@@ -1,8 +1,8 @@
 <?php namespace io\collections\unittest;
 
-use io\collections\FileCollection;
-use io\Path;
 use io\Folder;
+use io\Path;
+use io\collections\FileCollection;
 use util\Date;
 
 class FileCollectionTest extends \unittest\TestCase {
@@ -10,7 +10,7 @@ class FileCollectionTest extends \unittest\TestCase {
 
   #[@beforeClass]
   public static function createTempFile() {
-    self::$dir= getcwd();
+    self::$dir= realpath(getcwd());
   }
 
   /** @return var[][] */
@@ -30,7 +30,7 @@ class FileCollectionTest extends \unittest\TestCase {
   #[@test, @values('arguments')]
   public function uses_realpath_and_always_ends_with_directory_separator($arg) {
     $this->assertEquals(
-      rtrim(realpath(self::$dir), DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR,
+      rtrim(self::$dir, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR,
       (new FileCollection($arg))->getURI()
     );
   }
