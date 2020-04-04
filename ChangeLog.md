@@ -3,6 +3,10 @@ I/O Collections change log
 
 ## ?.?.? / ????-??-??
 
+## 8.0.1 / 2020-04-04
+
+* Made compatible with XP 10 - @thekid
+
 ## 8.0.0 / 2017-05-28
 
 * **Heads up: Dropped PHP 5.5 support!** - @thekid
