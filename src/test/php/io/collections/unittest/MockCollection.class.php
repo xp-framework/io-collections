@@ -1,8 +1,6 @@
 <?php namespace io\collections\unittest;
 
-use io\collections\IOElement;
-use io\collections\IOCollection;
-use io\collections\RandomCollectionAccess;
+use io\collections\{IOCollection, IOElement, RandomCollectionAccess};
 use lang\Value;
 
 /**

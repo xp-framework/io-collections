@@ -1,10 +1,7 @@
 <?php namespace io\collections\unittest;
 
-use io\TempFile;
-use io\IOException;
-use io\collections\ArchiveCollection;
-use io\collections\IOElement;
-use io\collections\IOCollection;
+use io\{IOException, TempFile};
+use io\collections\{ArchiveCollection, IOCollection, IOElement};
 use lang\archive\Archive;
 
 class ArchiveCollectionTest extends \unittest\TestCase {

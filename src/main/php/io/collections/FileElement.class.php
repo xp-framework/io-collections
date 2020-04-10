@@ -1,9 +1,7 @@
 <?php namespace io\collections;
 
-use io\streams\FileInputStream;
-use io\streams\FileOutputStream;
-use io\File;
-use io\Path;
+use io\{File, Path};
+use io\streams\{FileInputStream, FileOutputStream};
 use lang\Value;
 use util\Date;
 

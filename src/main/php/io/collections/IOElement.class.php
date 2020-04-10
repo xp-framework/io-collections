@@ -1,8 +1,7 @@
 <?php namespace io\collections;
 
+use io\streams\{InputStream, OutputStream};
 use util\Date;
-use io\streams\InputStream;
-use io\streams\OutputStream;
 
 /**
  * IO Element

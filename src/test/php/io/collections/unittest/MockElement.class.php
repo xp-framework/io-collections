@@ -1,9 +1,7 @@
 <?php namespace io\collections\unittest;
 
-use io\collections\IOElement;
-use io\collections\IOCollection;
-use io\streams\MemoryInputStream;
-use io\streams\MemoryOutputStream;
+use io\collections\{IOCollection, IOElement};
+use io\streams\{MemoryInputStream, MemoryOutputStream};
 use lang\Value;
 
 /**

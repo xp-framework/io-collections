@@ -1,7 +1,7 @@
 <?php namespace io\collections;
 
-use lang\archive\Archive;
 use lang\Value;
+use lang\archive\Archive;
 
 /**
  * Archive collection

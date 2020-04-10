@@ -1,8 +1,8 @@
 <?php namespace io\collections;
 
-use lang\archive\Archive;
 use io\streams\MemoryInputStream;
 use lang\Value;
+use lang\archive\Archive;
 
 /**
  * Represents an element inside an archive

@@ -1,9 +1,8 @@
 <?php namespace io\collections\unittest;
 
-use util\Date;
-use io\collections\IOElement;
-use io\collections\IOCollection;
+use io\collections\{IOCollection, IOElement};
 use unittest\AssertionFailedError;
+use util\Date;
 
 /**
  * This base class does not contain any test methods and is meant to

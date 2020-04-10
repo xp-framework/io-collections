@@ -1,11 +1,8 @@
 <?php namespace io\collections;
 
-use io\Folder;
-use io\Path;
-use io\IOException;
+use io\{Folder, IOException, Path};
 use lang\Value;
-use util\Date;
-use util\NoSuchElementException;
+use util\{Date, NoSuchElementException};
 
 /**
  * File collection

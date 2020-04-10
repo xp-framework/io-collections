@@ -1,7 +1,6 @@
 <?php namespace io\collections\unittest;
 
-use io\collections\CollectionComposite;
-use io\collections\IOElement;
+use io\collections\{CollectionComposite, IOElement};
 use lang\IllegalArgumentException;
 
 /**

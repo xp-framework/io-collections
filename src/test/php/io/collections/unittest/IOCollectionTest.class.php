@@ -1,12 +1,9 @@
 <?php namespace io\collections\unittest;
 
-use io\collections\IOCollection;
-use io\collections\IOElement;
-use io\streams\InputStream;
-use io\streams\OutputStream;
 use io\IOException;
-use lang\IllegalStateException;
-use lang\IllegalArgumentException;
+use io\collections\{IOCollection, IOElement};
+use io\streams\{InputStream, OutputStream};
+use lang\{IllegalArgumentException, IllegalStateException};
 use util\NoSuchElementException;
 
 /**

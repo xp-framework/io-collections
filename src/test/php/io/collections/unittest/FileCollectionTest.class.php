@@ -1,7 +1,6 @@
 <?php namespace io\collections\unittest;
 
-use io\Folder;
-use io\Path;
+use io\{Folder, Path};
 use io\collections\FileCollection;
 use util\Date;
 

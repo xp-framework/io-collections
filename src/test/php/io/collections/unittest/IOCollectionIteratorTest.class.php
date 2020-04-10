@@ -1,22 +1,7 @@
 <?php namespace io\collections\unittest;
 
-use io\collections\iterate\IOCollectionIterator;
-use io\collections\iterate\FilteredIOCollectionIterator;
-use io\collections\iterate\AccessedAfterFilter;
-use io\collections\iterate\AccessedBeforeFilter;
-use io\collections\iterate\CreatedAfterFilter;
-use io\collections\iterate\CreatedBeforeFilter;
-use io\collections\iterate\IterationFilter;
-use io\collections\iterate\ModifiedAfterFilter;
-use io\collections\iterate\ModifiedBeforeFilter;
-use io\collections\iterate\NameMatchesFilter;
-use io\collections\iterate\NameEqualsFilter;
-use io\collections\iterate\ExtensionEqualsFilter;
-use io\collections\iterate\UriMatchesFilter;
-use io\collections\iterate\SizeBiggerThanFilter;
-use io\collections\iterate\SizeEqualsFilter;
-use io\collections\iterate\SizeSmallerThanFilter;
 use io\collections\IOElement;
+use io\collections\iterate\{AccessedAfterFilter, AccessedBeforeFilter, CreatedAfterFilter, CreatedBeforeFilter, ExtensionEqualsFilter, FilteredIOCollectionIterator, IOCollectionIterator, IterationFilter, ModifiedAfterFilter, ModifiedBeforeFilter, NameEqualsFilter, NameMatchesFilter, SizeBiggerThanFilter, SizeEqualsFilter, SizeSmallerThanFilter, UriMatchesFilter};
 use util\Filters;
 
 /**
