@@ -59,7 +59,7 @@ class IOCollectionIterator implements XPIterator, \IteratorAggregate {
    * @return  php.Iterator
    */
   public function getIterator() {
-    if (!$this->iterator) $this->iterator= newinstance('Iterator', [$this], '{
+    return $this->iterator ?? $this->iterator= new class($this) implements \Iterator {
       private $i, $t, $r;
       public function __construct($r) { $this->r= $r; }
       public function current() { return $this->r->next(); }
@@ -67,8 +67,7 @@ class IOCollectionIterator implements XPIterator, \IteratorAggregate {
       public function next() { $this->i++; }
       public function rewind() { /* NOOP */ }
       public function valid() { return $this->r->hasNext(); }
-    }');
-    return $this->iterator;
+    };
   }
   
   /**
