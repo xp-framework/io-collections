@@ -1,5 +1,6 @@
 <?php namespace io\collections\iterate;
 
+use lang\Generic;
 use util\Filter;
 
 /**
@@ -7,7 +8,7 @@ use util\Filter;
  *
  * @see  xp://io.collections.iterate.FilteredIOCollectionIterator
  */
-#[@generic(['extends' => ['io.collections.IOElement']])]
+#[Generic(extends: ['io.collections.IOElement'])]
 interface IterationFilter extends Filter {
 
 }
