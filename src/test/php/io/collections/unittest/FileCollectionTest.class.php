@@ -1,13 +1,14 @@
 <?php namespace io\collections\unittest;
 
-use io\{Folder, Path};
 use io\collections\FileCollection;
+use io\{Folder, Path};
+use unittest\{BeforeClass, Ignore, Test, Values};
 use util\Date;
 
 class FileCollectionTest extends \unittest\TestCase {
   private static $dir;
 
-  #[@beforeClass]
+  #[BeforeClass]
   public static function createTempFile() {
     self::$dir= realpath(getcwd());
   }
@@ -21,12 +22,12 @@ class FileCollectionTest extends \unittest\TestCase {
     ];
   }
 
-  #[@test, @values('arguments')]
+  #[Test, Values('arguments')]
   public function can_create($arg) {
     new FileCollection($arg);
   }
 
-  #[@test, @values('arguments')]
+  #[Test, Values('arguments')]
   public function uses_realpath_and_always_ends_with_directory_separator($arg) {
     $this->assertEquals(
       rtrim(self::$dir, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR,
@@ -34,32 +35,32 @@ class FileCollectionTest extends \unittest\TestCase {
     );
   }
 
-  #[@test, @ignore('Weird version messup')]
+  #[Test, Ignore('Weird version messup')]
   public function equals_other_collection_with_same_path() {
     $this->assertEquals(new FileCollection(self::$dir), new FileCollection(self::$dir));
   }
 
-  #[@test]
+  #[Test]
   public function name() {
     $this->assertEquals(basename(self::$dir), (new FileCollection(self::$dir))->getName());
   }
 
-  #[@test]
+  #[Test]
   public function size() {
     $this->assertEquals(filesize(self::$dir), (new FileCollection(self::$dir))->getSize());
   }
 
-  #[@test]
+  #[Test]
   public function created() {
     $this->assertEquals(new Date(filectime(self::$dir)), (new FileCollection(self::$dir))->createdAt());
   }
 
-  #[@test]
+  #[Test]
   public function modified() {
     $this->assertEquals(new Date(filemtime(self::$dir)), (new FileCollection(self::$dir))->lastModified());
   }
 
-  #[@test]
+  #[Test]
   public function accessed() {
     $this->assertEquals(new Date(fileatime(self::$dir)), (new FileCollection(self::$dir))->lastAccessed());
   }

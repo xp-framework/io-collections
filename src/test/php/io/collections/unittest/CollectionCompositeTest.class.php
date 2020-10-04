@@ -2,6 +2,7 @@
 
 use io\collections\{CollectionComposite, IOElement};
 use lang\IllegalArgumentException;
+use unittest\{Expect, Test};
 
 /**
  * Unit tests for CollectionComposite class
@@ -33,12 +34,12 @@ class CollectionCompositeTest extends AbstractCollectionTest {
     return $this->newCollection($name, []);
   }
 
-  #[@test, @expect(IllegalArgumentException::class)]
+  #[Test, Expect(IllegalArgumentException::class)]
   public function constructorThrowsExceptionForEmptyList() {
     new CollectionComposite([]);
   }
 
-  #[@test]
+  #[Test]
   public function nextReturnsNullForOneEmptyCollection() {
     $empty= new CollectionComposite([$this->emptyCollection('empty-dir')]);
     $empty->open();
@@ -46,7 +47,7 @@ class CollectionCompositeTest extends AbstractCollectionTest {
     $empty->close();
   }
 
-  #[@test]
+  #[Test]
   public function nextReturnsNullForTwoEmptyCollections() {
     $empty= new CollectionComposite([
       $this->emptyCollection('empty-dir'),
@@ -57,7 +58,7 @@ class CollectionCompositeTest extends AbstractCollectionTest {
     $empty->close();
   }
 
-  #[@test]
+  #[Test]
   public function elementsFromAllCollections() {
     $composite= new CollectionComposite([
       $this->newCollection('/home', [new MockElement('.nedit')]),

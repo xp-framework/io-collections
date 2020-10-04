@@ -2,6 +2,7 @@
 
 use io\collections\IOElement;
 use io\collections\iterate\{AccessedAfterFilter, AccessedBeforeFilter, CreatedAfterFilter, CreatedBeforeFilter, ExtensionEqualsFilter, FilteredIOCollectionIterator, IOCollectionIterator, IterationFilter, ModifiedAfterFilter, ModifiedBeforeFilter, NameEqualsFilter, NameMatchesFilter, SizeBiggerThanFilter, SizeEqualsFilter, SizeSmallerThanFilter, UriMatchesFilter};
+use unittest\Test;
 use util\Filters;
 
 /**
@@ -30,7 +31,7 @@ class IOCollectionIteratorTest extends AbstractCollectionTest {
     return $elements;
   }
 
-  #[@test]
+  #[Test]
   public function iteration() {
     for ($it= new IOCollectionIterator($this->fixture), $i= 0; $it->hasNext(); $i++) {
       $element= $it->next();
@@ -39,7 +40,7 @@ class IOCollectionIteratorTest extends AbstractCollectionTest {
     $this->assertEquals($this->sizes[$this->fixture->getURI()], $i);
   }
 
-  #[@test]
+  #[Test]
   public function recursiveIteration() {
     for ($it= new IOCollectionIterator($this->fixture, true), $i= 0; $it->hasNext(); $i++) {
       $element= $it->next();
@@ -48,7 +49,7 @@ class IOCollectionIteratorTest extends AbstractCollectionTest {
     $this->assertEquals($this->total, $i);
   }
 
-  #[@test]
+  #[Test]
   public function foreachLoop() {
     foreach (new IOCollectionIterator($this->fixture) as $i => $element) {
       $this->assertInstanceOf(IOElement::class, $element);
@@ -56,7 +57,7 @@ class IOCollectionIteratorTest extends AbstractCollectionTest {
     $this->assertEquals($this->sizes[$this->fixture->getURI()]- 1, $i);
   }
 
-  #[@test]
+  #[Test]
   public function foreachLoopRecursive() {
     foreach (new IOCollectionIterator($this->fixture, true) as $i => $element) {
       $this->assertInstanceOf(IOElement::class, $element);
@@ -64,7 +65,7 @@ class IOCollectionIteratorTest extends AbstractCollectionTest {
     $this->assertEquals($this->total- 1, $i);
   }
 
-  #[@test]
+  #[Test]
   public function filteredIteration() {
     $this->assertEquals(
       $this->sizes[$this->fixture->getURI()],
@@ -72,7 +73,7 @@ class IOCollectionIteratorTest extends AbstractCollectionTest {
     );
   }
 
-  #[@test]
+  #[Test]
   public function filteredRecursiveIteration() {
     $this->assertEquals(
       $this->total,
@@ -80,7 +81,7 @@ class IOCollectionIteratorTest extends AbstractCollectionTest {
     );
   }
 
-  #[@test]
+  #[Test]
   public function nameMatches() {
     $this->assertEquals(
       ['./first.txt', './second.txt'],
@@ -88,7 +89,7 @@ class IOCollectionIteratorTest extends AbstractCollectionTest {
     );
   }
 
-  #[@test]
+  #[Test]
   public function nameMatchesRecursive() {
     $this->assertEquals(
       ['./first.txt', './second.txt', './sub/IMG_6100.txt'],
@@ -96,7 +97,7 @@ class IOCollectionIteratorTest extends AbstractCollectionTest {
     );
   }
 
-  #[@test]
+  #[Test]
   public function nameEquals() {
     $this->assertEquals(
       [], 
@@ -104,7 +105,7 @@ class IOCollectionIteratorTest extends AbstractCollectionTest {
     );
   }
 
-  #[@test]
+  #[Test]
   public function nameEqualsRecursive() {
     $this->assertEquals(
       ['./sub/sec/__xp__.php'],
@@ -112,7 +113,7 @@ class IOCollectionIteratorTest extends AbstractCollectionTest {
     );
   }
 
-  #[@test]
+  #[Test]
   public function extensionEquals() {
     $this->assertEquals(
       [], 
@@ -120,7 +121,7 @@ class IOCollectionIteratorTest extends AbstractCollectionTest {
     );
   }
 
-  #[@test]
+  #[Test]
   public function extensionEqualsRecursive() {
     $this->assertEquals(
       ['./sub/sec/lang.base.php', './sub/sec/__xp__.php'],
@@ -128,7 +129,7 @@ class IOCollectionIteratorTest extends AbstractCollectionTest {
     );
   }
 
-  #[@test]
+  #[Test]
   public function uriMatches() {
     $this->assertEquals(
       ['./first.txt', './second.txt'],
@@ -136,7 +137,7 @@ class IOCollectionIteratorTest extends AbstractCollectionTest {
     );
   }
 
-  #[@test]
+  #[Test]
   public function uriMatchesRecursive() {
     $this->assertEquals(
       ['./sub/', './sub/IMG_6100.jpg', './sub/IMG_6100.txt', './sub/sec/', './sub/sec/lang.base.php', './sub/sec/__xp__.php'],
@@ -144,7 +145,7 @@ class IOCollectionIteratorTest extends AbstractCollectionTest {
     );
   }
 
-  #[@test]
+  #[Test]
   public function uriMatchesDirectorySeparators() {
     with ($src= $this->addElement($this->fixture, new MockCollection('./sub/src'))); {
       $this->addElement($src, new MockElement('./sub/src/Generic.xp')); 
@@ -155,7 +156,7 @@ class IOCollectionIteratorTest extends AbstractCollectionTest {
     );
   }
 
-  #[@test]
+  #[Test]
   public function uriMatchesPlatformDirectorySeparators() {
     $mockName= '.'.DIRECTORY_SEPARATOR.'sub'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'Generic.xp';
     with ($src= $this->addElement($this->fixture, new MockCollection('.'.DIRECTORY_SEPARATOR.'sub'.DIRECTORY_SEPARATOR.'src'))); {
@@ -167,7 +168,7 @@ class IOCollectionIteratorTest extends AbstractCollectionTest {
     );
   }
   
-  #[@test]
+  #[Test]
   public function zeroBytes() {
     $this->assertEquals(
       ['./zerobytes.png'],
@@ -175,7 +176,7 @@ class IOCollectionIteratorTest extends AbstractCollectionTest {
     );
   }
 
-  #[@test]
+  #[Test]
   public function bigFiles() {
     $this->assertEquals(
       ['./sub/IMG_6100.jpg'],
@@ -183,7 +184,7 @@ class IOCollectionIteratorTest extends AbstractCollectionTest {
     );
   }
 
-  #[@test]
+  #[Test]
   public function smallFiles() {
     $this->assertEquals(
       ['./second.txt', './zerobytes.png'],
@@ -191,7 +192,7 @@ class IOCollectionIteratorTest extends AbstractCollectionTest {
     );
   }
 
-  #[@test]
+  #[Test]
   public function accessedAfter() {
     $this->assertEquals(
       ['./first.txt', './second.txt', './sub/sec/lang.base.php', './sub/sec/__xp__.php'],
@@ -199,7 +200,7 @@ class IOCollectionIteratorTest extends AbstractCollectionTest {
     );
   }
 
-  #[@test]
+  #[Test]
   public function accessedBefore() {
     $this->assertEquals(
       ['./third.jpg', './zerobytes.png'],
@@ -207,7 +208,7 @@ class IOCollectionIteratorTest extends AbstractCollectionTest {
     );
   }
 
-  #[@test]
+  #[Test]
   public function modifiedAfter() {
     $this->assertEquals(
       ['./sub/sec/lang.base.php', './sub/sec/__xp__.php'],
@@ -215,7 +216,7 @@ class IOCollectionIteratorTest extends AbstractCollectionTest {
     );
   }
 
-  #[@test]
+  #[Test]
   public function modifiedBefore() {
     $this->assertEquals(
       ['./third.jpg', './zerobytes.png'],
@@ -223,7 +224,7 @@ class IOCollectionIteratorTest extends AbstractCollectionTest {
     );
   }
 
-  #[@test]
+  #[Test]
   public function createdAfter() {
     $this->assertEquals(
       ['./sub/sec/__xp__.php'],
@@ -231,7 +232,7 @@ class IOCollectionIteratorTest extends AbstractCollectionTest {
     );
   }
 
-  #[@test]
+  #[Test]
   public function createdBefore() {
     $this->assertEquals(
       ['./sub/sec/lang.base.php'],
@@ -239,7 +240,7 @@ class IOCollectionIteratorTest extends AbstractCollectionTest {
     );
   }
 
-  #[@test]
+  #[Test]
   public function allOf() {
     $this->assertEquals(
       ['./third.jpg'],
@@ -250,7 +251,7 @@ class IOCollectionIteratorTest extends AbstractCollectionTest {
     );
   }
 
-  #[@test]
+  #[Test]
   public function anyOf() {
     $this->assertEquals(
       ['./first.txt', './second.txt', './zerobytes.png', './sub/IMG_6100.txt'],
@@ -261,7 +262,7 @@ class IOCollectionIteratorTest extends AbstractCollectionTest {
     );
   }
 
-  #[@test]
+  #[Test]
   public function noneOf() {
     $this->assertEquals(
       ['./third.jpg', './sub/', './sub/IMG_6100.jpg', './sub/sec/', './sub/sec/lang.base.php', './sub/sec/__xp__.php'],
@@ -272,7 +273,7 @@ class IOCollectionIteratorTest extends AbstractCollectionTest {
     );
   }
 
-  #[@test]
+  #[Test]
   public function originBasedOn() {
     $c= $this->newCollection('/home', [
       new MockElement('.nedit'),
@@ -286,7 +287,7 @@ class IOCollectionIteratorTest extends AbstractCollectionTest {
     }
   }
 
-  #[@test]
+  #[Test]
   public function originEqualsBase() {
     $c= $this->newCollection('/home', [
       new MockElement('.nedit'),
@@ -300,7 +301,7 @@ class IOCollectionIteratorTest extends AbstractCollectionTest {
     }
   }
 
-  #[@test]
+  #[Test]
   public function originEquals() {
     $c= $this->newCollection('/home', [
       new MockElement('.nedit'),

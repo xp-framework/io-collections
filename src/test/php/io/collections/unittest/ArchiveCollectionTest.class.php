@@ -1,8 +1,9 @@
 <?php namespace io\collections\unittest;
 
-use io\{IOException, TempFile};
 use io\collections\{ArchiveCollection, IOCollection, IOElement};
+use io\{IOException, TempFile};
 use lang\archive\Archive;
+use unittest\{Expect, Test};
 
 class ArchiveCollectionTest extends \unittest\TestCase {
   private $file, $archive;
@@ -52,7 +53,7 @@ class ArchiveCollectionTest extends \unittest\TestCase {
     $this->assertEquals($name, substr($uri, -strlen($name)), $uri);
   }
   
-  #[@test]
+  #[Test]
   public function entriesInBase() {
     $c= new ArchiveCollection($this->archive);
     try {
@@ -67,7 +68,7 @@ class ArchiveCollectionTest extends \unittest\TestCase {
     }
   }
   
-  #[@test]
+  #[Test]
   public function entriesInLang() {
     $c= new ArchiveCollection($this->archive, 'lang');
     
@@ -105,19 +106,19 @@ class ArchiveCollectionTest extends \unittest\TestCase {
     return $first;
   }
 
-  #[@test]
+  #[Test]
   public function readTwice() {
     $c= new ArchiveCollection($this->archive);
     $this->assertEquals($this->firstElement($c), $this->firstElement($c));
   }
 
-  #[@test]
+  #[Test]
   public function readLangTwice() {
     $c= new ArchiveCollection($this->archive, 'lang');
     $this->assertEquals($this->firstElement($c), $this->firstElement($c));
   }
 
-  #[@test]
+  #[Test]
   public function readObjectEntry() {
     with ($first= $this->firstElement(new ArchiveCollection($this->archive, 'lang'))); {
       $this->assertEquals(
@@ -127,46 +128,46 @@ class ArchiveCollectionTest extends \unittest\TestCase {
     }
   }
 
-  #[@test, @expect(IOException::class)]
+  #[Test, Expect(IOException::class)]
   public function writeObjectEntry() {
     $this->firstElement(new ArchiveCollection($this->archive, 'lang'))->getOutputStream();
   }
 
-  #[@test, @expect(IOException::class)]
+  #[Test, Expect(IOException::class)]
   public function readLangEntry() {
     $this->firstElement(new ArchiveCollection($this->archive))->getInputStream();
   }
 
-  #[@test, @expect(IOException::class)]
+  #[Test, Expect(IOException::class)]
   public function writeLangEntry() {
     $this->firstElement(new ArchiveCollection($this->archive))->getOutputStream();
   }
 
-  #[@test]
+  #[Test]
   public function collections_origin() {
     $base= new ArchiveCollection($this->archive, 'lang');
     $this->assertEquals($base, $this->firstElement($base)->getOrigin());
   }
 
-  #[@test]
+  #[Test]
   public function collections_name() {
     $base= new ArchiveCollection($this->archive, 'lang');
     $this->assertEquals('lang', $base->getName());
   }
 
-  #[@test]
+  #[Test]
   public function collections_uri() {
     $base= new ArchiveCollection($this->archive, 'lang');
     $this->assertXarUri('lang/', $base->getUri());
   }
 
-  #[@test]
+  #[Test]
   public function elements_name() {
     $element= $this->firstElement(new ArchiveCollection($this->archive, 'lang'));
     $this->assertEquals('Object.xp', $element->getName());
   }
 
-  #[@test]
+  #[Test]
   public function elements_uri() {
     $element= $this->firstElement(new ArchiveCollection($this->archive, 'lang'));
     $this->assertXarUri('lang/Object.xp', $element->getUri());
