@@ -3,6 +3,11 @@ I/O Collections change log
 
 ## ?.?.? / ????-??-??
 
+## 10.0.0 / 2020-12-29
+
+* **Heads up: Requires XP 10.2 minimum!** - @thekid
+* Convert annotations to PHP 8 attributes - @thekid
+
 ## 9.0.0 / 2020-04-10
 
 * Implemented xp-framework/rfc#334: Drop PHP 5.6:
