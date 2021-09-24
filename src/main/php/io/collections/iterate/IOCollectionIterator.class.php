@@ -23,7 +23,7 @@ use util\XPIterator;
  */
 class IOCollectionIterator implements XPIterator, IteratorAggregate {
   public $collections = [], $recursive = false;
-  protected $_element null;
+  protected $_element= null;
   
   /**
    * Constructor
