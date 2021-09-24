@@ -3,6 +3,12 @@ I/O Collections change log
 
 ## ?.?.? / ????-??-??
 
+## 10.0.1 / 2021-09-24
+
+* Simplify getIterator() by refactoring its anonymous inner class
+  to `yield` expressions. Fixes PHP 8.1 compatiblity
+  (@thekid)
+
 ## 10.0.0 / 2020-12-29
 
 * **Heads up: Requires XP 10.2 minimum!** - @thekid
