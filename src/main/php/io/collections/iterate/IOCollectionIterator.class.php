@@ -1,5 +1,6 @@
 <?php namespace io\collections\iterate;
 
+use IteratorAggregate, Traversable;
 use io\collections\IOCollection;
 use util\XPIterator;
 
@@ -20,14 +21,9 @@ use util\XPIterator;
  * @test     xp://net.xp_framework.unittest.io.collections.IOCollectionIteratorTest
  * @see      xp://io.collections.iterate.FilteredIOCollectionIterator
  */
-class IOCollectionIterator implements XPIterator, \IteratorAggregate {
-  public
-    $collections = [],
-    $recursive   = false;
-  
-  protected
-    $iterator    = null,
-    $_element    = null;
+class IOCollectionIterator implements XPIterator, IteratorAggregate {
+  public $collections = [], $recursive = false;
+  protected $_element null;
   
   /**
    * Constructor
@@ -58,16 +54,10 @@ class IOCollectionIterator implements XPIterator, \IteratorAggregate {
    * @see     php://language.oop5.iterations
    * @return  php.Iterator
    */
-  public function getIterator() {
-    return $this->iterator ?? $this->iterator= new class($this) implements \Iterator {
-      private $i, $t, $r;
-      public function __construct($r) { $this->r= $r; }
-      public function current() { return $this->r->next(); }
-      public function key() { return $this->i; }
-      public function next() { $this->i++; }
-      public function rewind() { /* NOOP */ }
-      public function valid() { return $this->r->hasNext(); }
-    };
+  public function getIterator(): Traversable {
+    while ($this->hasNext()) {
+      yield $this->next();
+    }
   }
   
   /**
