@@ -2,7 +2,7 @@
 
 use io\collections\FileElement;
 use io\{File, Path};
-use lang\System;
+use lang\Environment;
 use unittest\{AfterClass, BeforeClass, Ignore, Test, Values};
 use util\Date;
 
@@ -11,7 +11,7 @@ class FileElementTest extends \unittest\TestCase {
 
   #[BeforeClass]
   public static function createTempFile() {
-    self::$file= tempnam(System::tempDir(), 'fe-test');
+    self::$file= tempnam(Environment::tempDir(), 'fe-test');
   }
 
   #[AfterClass]
@@ -38,7 +38,7 @@ class FileElementTest extends \unittest\TestCase {
     $this->assertEquals(realpath(self::$file), (new FileElement($arg))->getURI());
   }
 
-  #[Test, Ignore('Weird version messup')]
+  #[Test]
   public function equals_other_collection_with_same_path() {
     $this->assertEquals(new FileElement(self::$file), new FileElement(self::$file));
   }
