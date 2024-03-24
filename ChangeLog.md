@@ -3,6 +3,9 @@ I/O Collections change log
 
 ## ?.?.? / ????-??-??
 
+## 10.1.0 / 2024-03-24
+
+* Made compatible with XP 12 - @thekid
 * Added PHP 8.4 to the test matrix - @thekid
 
 ## 10.0.2 / 2021-10-21
